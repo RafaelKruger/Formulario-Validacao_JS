@@ -1,25 +1,38 @@
 const form = document.querySelector("#form");
-const username = document.querySelector("#username");
-const email = document.querySelector("#email");
-const password = document.querySelector("#password");
-const passwordConfirmation = document.querySelector("#password-confirmation");
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  checkInputs();
+  checkForm();
 });
 
-function checkInputs() {
-  const usernameValue = username.value;
-  const emailValue = email.value;
-  const passwordValue = password.value;
-  const passwordConfirmationValue = passwordConfirmation.value;
+function checkForm() {
+  const formControls = form.querySelectorAll(".form-control");
+  const formIsValid = [...formControls].every((formControl) => {
+    return formControl.className === "form-control success";
+  });
+  if (formIsValid) {
+    console.log("O formulário está validado e pronto para o envio!");
+  } else {
+    // executa a validação de todos os campos para dar o feedback ao usuário do que falta preencher
+    checkInputUsername(document.querySelector("#username"));
+    checkInputEmail(document.querySelector("#email"));
+    checkInputPassword(document.querySelector("#password"));
+    checkInputPasswordConfirmation(
+      document.querySelector("#password-confirmation")
+    );
+  }
+}
 
+function checkInputUsername(username) {
+  const usernameValue = username.value;
   if (usernameValue === "") {
     setErrorFor(username, "O nome de usuário é obrigatório.");
   } else {
     setSucessFor(username);
   }
+}
+function checkInputEmail(email) {
+  const emailValue = email.value;
   if (emailValue === "") {
     setErrorFor(email, "O email é obrigatório.");
   } else if (!checkEmail(emailValue)) {
@@ -27,6 +40,9 @@ function checkInputs() {
   } else {
     setSucessFor(email);
   }
+}
+function checkInputPassword(password) {
+  const passwordValue = password.value;
   if (passwordValue === "") {
     setErrorFor(password, "A senha é obrigatória.");
   } else if (passwordValue.length < 6) {
@@ -34,6 +50,10 @@ function checkInputs() {
   } else {
     setSucessFor(password);
   }
+}
+function checkInputPasswordConfirmation(passwordConfirmation) {
+  const passwordConfirmationValue = passwordConfirmation.value;
+  const passwordValue = document.querySelector("#password").value;
   if (passwordConfirmationValue === "") {
     setErrorFor(passwordConfirmation, "A confirmação da senha é obrigatória.");
   } else if (passwordConfirmationValue.length < 6) {
@@ -45,16 +65,6 @@ function checkInputs() {
     setErrorFor(passwordConfirmation, "As senhas não são iguais.");
   } else {
     setSucessFor(passwordConfirmation);
-  }
-
-  const formControls = form.querySelectorAll(".form-control");
-
-  const formIsValid = [...formControls].every((formControl) => {
-    return formControl.className === "form-control success";
-  });
-
-  if (formIsValid) {
-    console.log("está validado!");
   }
 }
 
