@@ -80,16 +80,18 @@ body {
 .form-control.success input {
   border-color: #2ecc71;
 }
-.form-control.success i.fa-check-circle {
-  border-color: #2ecc71;
+.form-control.success i.fa-circle-check {
+  color: #2ecc71;
+  visibility: visible;
 }
 /* Success*/
 /* Error  */
 .form-control.error input {
   border-color: #e74c3c;
 }
-.form-control.error i.fa-exclamation-circle {
-  border-color: #e74c3c;
+.form-control.error i.fa-circle-exclamation {
+  color: #e74c3c;
+  visibility: visible;
 }
 .form-control.error small {
   color: #e74c3c;
